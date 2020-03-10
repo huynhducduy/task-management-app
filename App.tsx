@@ -3,14 +3,14 @@ import React from "react";
 import { Button, ThemeProvider } from "react-native-elements";
 
 export default function App() {
-  return (
-    // <View style={styles.container}>
-    //   <Text>Open up App.tsx to start working on your app!</Text>
-    // </View>
-    <ThemeProvider>
-      <Button title="Hey!" />
-    </ThemeProvider>
-  );
+    return (
+        // <View style={styles.container}>
+        //   <Text>Open up App.tsx to start working on your app!</Text>
+        // </View>
+        <ThemeProvider>
+            <Button title="Hey!" />
+        </ThemeProvider>
+    );
 }
 
 // const styles = StyleSheet.create({
