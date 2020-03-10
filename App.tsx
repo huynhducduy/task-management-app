@@ -8,7 +8,7 @@ export default function App() {
         //   <Text>Open up App.tsx to start working on your app!</Text>
         // </View>
         <ThemeProvider>
-            <Button title="Hey!" />
+            <Button title="Heyooo!" />
         </ThemeProvider>
     );
 }
