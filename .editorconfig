@@ -1,4 +1,5 @@
 # editorconfig.org
+# this config must follow .prettierrc config
 root = true
 
 [*]
