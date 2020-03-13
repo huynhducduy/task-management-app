@@ -15,9 +15,7 @@ import Login from "./app/screens/Login";
 
 function HomeScreen({ navigation }) {
     return (
-        <View
-            style={{ flex: 1, alignItems: "center", justifyContent: "center" }}
-        >
+        <View style={{ flex: 1, alignItems: "center", justifyContent: "top" }}>
             <Text>Home Screen</Text>
             <Button
                 title="Go to Details"
