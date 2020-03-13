@@ -1,23 +1,19 @@
 import React from "react";
-// import { StyleSheet, Text, View } from 'react-native';
+import { StatusBar, View } from "react-native";
+import {
+    SafeAreaProvider,
+    SafeAreaView,
+    initialWindowSafeAreaInsets,
+} from "react-native-safe-area-context";
 import { Button, ThemeProvider } from "react-native-elements";
 
 export default function App() {
     return (
-        // <View style={styles.container}>
-        //   <Text>Open up App.tsx to start working on your app!</Text>
-        // </View>
-        <ThemeProvider>
-            <Button title="Heyooo!" />
-        </ThemeProvider>
+        <SafeAreaProvider initialSafeAreaInsets={initialWindowSafeAreaInsets}>
+            <StatusBar barStyle="dark-content" />
+            <SafeAreaView>
+                <ThemeProvider></ThemeProvider>
+            </SafeAreaView>
+        </SafeAreaProvider>
     );
 }
-
-// const styles = StyleSheet.create({
-//   container: {
-//     flex: 1,
-//     backgroundColor: '#fff',
-//     alignItems: 'center',
-//     justifyContent: 'center',
-//   },
-// });
