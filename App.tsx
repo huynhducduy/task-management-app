@@ -1,5 +1,6 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import "react-native-gesture-handler";
+
 import { StatusBar, View, Text, Button } from "react-native";
 import {
     SafeAreaProvider,
@@ -8,41 +9,52 @@ import {
 } from "react-native-safe-area-context";
 import { ThemeProvider } from "react-native-elements";
 import Icon from "react-native-vector-icons/FontAwesome";
-import ErrorBoundary from "./app/components/errorBoundary";
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 import Login from "./app/screens/Login";
-
-function HomeScreen({ navigation }) {
-    return (
-        <View style={{ flex: 1, alignItems: "center", justifyContent: "top" }}>
-            <Text>Home Screen</Text>
-            <Button
-                title="Go to Details"
-                onPress={() => navigation.navigate("Login")}
-            />
-        </View>
-    );
-}
+import Register from "./app/screens/Register";
+import Home from "./app/screens/Home.js";
+import Walkthrough from "./app/screens/Walkthrough.js";
 
 const Stack = createStackNavigator();
 
 export default function App() {
+    const [isLoggedIn, setLoggedIn] = useState(false);
+
+    const NewLogin = function() {
+        return <Login setLoggedIn={setLoggedIn} />;
+    };
+
     return (
         <SafeAreaProvider initialSafeAreaInsets={initialWindowSafeAreaInsets}>
             <ThemeProvider>
                 <StatusBar barStyle="dark-content" />
                 <NavigationContainer>
-                    <ErrorBoundary>
-                        <Stack.Navigator>
+                    <Stack.Navigator>
+                        {!isLoggedIn ? (
+                            <>
+                                <Stack.Screen
+                                    name="Walkthrough"
+                                    component={Walkthrough}
+                                    options={{ title: "Walkthrough" }}
+                                />
+                                <Stack.Screen
+                                    name="Login"
+                                    component={NewLogin}
+                                />
+                                <Stack.Screen
+                                    name="Register"
+                                    component={Register}
+                                />
+                            </>
+                        ) : (
                             <Stack.Screen
                                 name="Home"
-                                component={HomeScreen}
-                                options={{ title: "Overview" }}
+                                component={Home}
+                                options={{ title: "Sen Task Management" }}
                             />
-                            <Stack.Screen name="Login" component={Login} />
-                        </Stack.Navigator>
-                    </ErrorBoundary>
+                        )}
+                    </Stack.Navigator>
                 </NavigationContainer>
             </ThemeProvider>
         </SafeAreaProvider>

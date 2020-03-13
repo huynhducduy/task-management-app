@@ -1,38 +1,68 @@
 import React from "react";
 import { View } from "react-native";
 import { Input, Button } from "react-native-elements";
+import { AsyncStorage } from "react-native";
 
 export default class Login extends React.Component {
+    constructor(props) {
+        super(props);
+
+        this.state = {
+            username: "",
+            username_error: "",
+            password: "",
+            password_error: "",
+        };
+    }
+
+    onChangeUsername = function(username) {
+        this.setState({ username });
+    }.bind(this);
+
+    onChangePassword = function(password) {
+        this.setState({ password });
+    }.bind(this);
+
+    login = function() {
+        this.props.setLoggedIn(true);
+        // this.setState({
+        //     username_error: "Wrong username",
+        //     password_error: "Wrong password",
+        // });
+    }.bind(this);
+
     render() {
         return (
             <>
                 <View
                     style={{
                         flex: 1,
-                        justifyContent: "center",
+                        justifyContent: "top",
                         alignItems: "center",
                     }}
                 >
                     <Input
                         label="Username"
-                        leftIcon={{
-                            type: "font-awesome",
-                            name: "chevron-left",
-                        }}
                         errorStyle={{ color: "red" }}
-                        errorMessage="ENTER A VALID ERROR HERE"
+                        value={this.state.username}
+                        onChangeText={this.onChangeUsername}
+                        labelStyle={{ marginTop: 10 }}
+                        errorMessage={this.state.username_error}
                     />
                     <Input
                         label="Password"
-                        leftIcon={{
-                            type: "font-awesome",
-                            name: "chevron-left",
-                        }}
                         secureTextEntry={true}
+                        onChangeText={this.onChangePassword}
+                        value={this.state.password}
                         errorStyle={{ color: "red" }}
-                        errorMessage="ENTER A VALID ERROR HERE"
+                        labelStyle={{ marginTop: 10 }}
+                        errorMessage={this.state.password_error}
                     />
-                    <Button title="Login" />
+                    <Button
+                        title="Login"
+                        style={{ marginTop: 10 }}
+                        onPress={this.login}
+                    />
                 </View>
             </>
         );
