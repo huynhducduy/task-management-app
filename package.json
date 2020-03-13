@@ -6,7 +6,8 @@
         "ios": "expo start --ios",
         "web": "expo start --web",
         "eject": "expo eject",
-        "fix": "prettier --write '*.{js,jsx,ts,tsx}'"
+        "fix": "prettier --write '*.{js,jsx,ts,tsx}'",
+        "postinstall": "rndebugger-open --expo"
     },
     "dependencies": {
         "expo": "~36.0.0",
@@ -25,6 +26,7 @@
         "husky": ">=4",
         "lint-staged": ">=10",
         "prettier": "^1.19.1",
+        "react-native-debugger-open": "^0.3.24",
         "typescript": "~3.6.3"
     },
     "private": true,
