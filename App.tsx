@@ -6,14 +6,15 @@ import {
     initialWindowSafeAreaInsets,
 } from "react-native-safe-area-context";
 import { Button, ThemeProvider } from "react-native-elements";
+import ErrorBoundary from "./app/components/errorBoundary";
 
 export default function App() {
     return (
         <SafeAreaProvider initialSafeAreaInsets={initialWindowSafeAreaInsets}>
-            <StatusBar barStyle="dark-content" />
-            <SafeAreaView>
-                <ThemeProvider></ThemeProvider>
-            </SafeAreaView>
+            <ThemeProvider>
+                <StatusBar barStyle="dark-content" />
+                <SafeAreaView></SafeAreaView>
+            </ThemeProvider>
         </SafeAreaProvider>
     );
 }
