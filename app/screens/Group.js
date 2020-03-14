@@ -3,13 +3,25 @@ import { View, Text } from "react-native";
 import { Input, Button } from "react-native-elements";
 import { AsyncStorage, FlatList } from "react-native";
 import { ListItem } from "react-native-elements";
+import { createStackNavigator } from "@react-navigation/stack";
+const Stack = createStackNavigator();
 
-export default class Login extends React.Component {
+export default class Group extends React.Component {
     constructor(props) {
         super(props);
 
         this.state = {};
     }
+
+    ListGroup = function() {
+        return (
+            <FlatList
+                keyExtractor={this.keyExtractor}
+                data={this.list}
+                renderItem={this.renderItem}
+            />
+        );
+    }.bind(this);
 
     list = [
         {
@@ -26,6 +38,10 @@ export default class Login extends React.Component {
         },
     ];
 
+    onPress = function() {
+        this;
+    }.bind(this);
+
     keyExtractor = (item, index) => index.toString();
 
     renderItem = ({ item }) => (
@@ -33,6 +49,7 @@ export default class Login extends React.Component {
             title={item.name}
             subtitle={item.subtitle}
             leftAvatar={{ source: { uri: item.avatar_url } }}
+            onPress={this.onPress}
             bottomDivider
             chevron
         />
@@ -40,11 +57,10 @@ export default class Login extends React.Component {
 
     render() {
         return (
-            <FlatList
-                keyExtractor={this.keyExtractor}
-                data={this.list}
-                renderItem={this.renderItem}
-            />
+            <Stack.Navigator headerMode="none">
+                <Stack.Screen name="ListGroup" component={this.ListGroup} />
+                <Stack.Screen name="ViewGroup" component={this.ListGroup} />
+            </Stack.Navigator>
         );
     }
 }

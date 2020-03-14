@@ -1,7 +1,8 @@
 import React from "react";
-import { View, Button } from "react-native-elements";
+import { View } from "react-native";
+import { Button } from "react-native-elements";
 
-function Walkthrough({ navigation }) {
+export default function Walkthrough({ navigation }) {
     return (
         <View style={{ flex: 1, alignItems: "center", justifyContent: "top" }}>
             <Button

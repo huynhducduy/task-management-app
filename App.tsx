@@ -13,8 +13,8 @@ import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 import Login from "./app/screens/Login";
 import Register from "./app/screens/Register";
-import Home from "./app/screens/Home.js";
-import Walkthrough from "./app/screens/Walkthrough.js";
+import Home from "./app/screens/Home";
+import Walkthrough from "./app/screens/Walkthrough";
 
 const Stack = createStackNavigator();
 
