@@ -3,13 +3,12 @@ import generateKey from "./generateKey";
 
 export default async (key, value, callback = function() {}) => {
     try {
-        if (Array.isArray(key) && Array.isArray(value))
-            await AsyncStorage.multiSet(
-                key.map(k => generateKey(k)),
-                value,
-                callback
-            );
-        else await AsyncStorage.setItem(generateKey(key), value, callback);
+        if (Array.isArray(key) && Array.isArray(value)) {
+            let data = [];
+            key = [...key.map(k => generateKey(k)), ...value];
+            while (key.length) data.push(key.splice(0, 2));
+            await AsyncStorage.multiSet(data, callback);
+        } else await AsyncStorage.setItem(generateKey(key), value, callback);
         return;
     } catch (error) {
         throw error;
