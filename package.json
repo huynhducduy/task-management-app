@@ -7,7 +7,9 @@
         "web": "expo start --web",
         "eject": "expo eject",
         "fix": "prettier --write '*.{js,jsx,ts,tsx}'",
-        "postinstall": "rndebugger-open --expo"
+        "postinstall": "rndebugger-open --expo",
+        "clear:babel-cache": "rm -rf ./node_modules/.cache/babel-loader/*",
+        "refresh": "rm -rf ./node_modules yarn.lock && yarn"
     },
     "dependencies": {
         "@babel/plugin-proposal-export-default-from": "^7.8.3",
