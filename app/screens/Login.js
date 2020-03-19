@@ -1,70 +1,53 @@
-import React from "react";
+import React, { useState } from "react";
 import { View } from "react-native";
 import { Input, Button } from "react-native-elements";
 import { AsyncStorage } from "react-native";
+import AuthContainer from "../AuthContainer";
 
-export default class Login extends React.Component {
-    constructor(props) {
-        super(props);
+export default function Login() {
+    const [username, setUsername] = useState();
+    const [password, setPassword] = useState();
+    const [username_error, setUsernameError] = useState();
+    const [password_error, setPasswordError] = useState();
 
-        this.state = {
-            username: "",
-            username_error: "",
-            password: "",
-            password_error: "",
-        };
-    }
+    const login = function() {
+        auth.setLoggedIn(true);
+    };
 
-    onChangeUsername = function(username) {
-        this.setState({ username });
-    }.bind(this);
+    const auth = AuthContainer.useContainer();
 
-    onChangePassword = function(password) {
-        this.setState({ password });
-    }.bind(this);
-
-    login = function() {
-        this.props.setLoggedIn(true);
-        // this.setState({
-        //     username_error: "Wrong username",
-        //     password_error: "Wrong password",
-        // });
-    }.bind(this);
-
-    render() {
-        return (
-            <>
-                <View
-                    style={{
-                        flex: 1,
-                        justifyContent: "top",
-                        alignItems: "center",
-                    }}
-                >
-                    <Input
-                        label="Username"
-                        errorStyle={{ color: "red" }}
-                        value={this.state.username}
-                        onChangeText={this.onChangeUsername}
-                        labelStyle={{ marginTop: 10 }}
-                        errorMessage={this.state.username_error}
-                    />
-                    <Input
-                        label="Password"
-                        secureTextEntry={true}
-                        onChangeText={this.onChangePassword}
-                        value={this.state.password}
-                        errorStyle={{ color: "red" }}
-                        labelStyle={{ marginTop: 10 }}
-                        errorMessage={this.state.password_error}
-                    />
-                    <Button
-                        title="Login"
-                        style={{ marginTop: 10 }}
-                        onPress={this.login}
-                    />
-                </View>
-            </>
-        );
-    }
+    return (
+        <>
+            <View
+                style={{
+                    flex: 1,
+                    justifyContent: "top",
+                    alignItems: "center",
+                }}
+            >
+                <Input
+                    label="Username"
+                    errorStyle={{ color: "red" }}
+                    value={username}
+                    onChangeText={setUsername}
+                    labelStyle={{ marginTop: 10 }}
+                    errorMessage={username_error}
+                />
+                <Input
+                    label="Password"
+                    secureTextEntry={true}
+                    onChangeText={this.setPassword}
+                    value={password}
+                    errorStyle={{ color: "red" }}
+                    labelStyle={{ marginTop: 10 }}
+                    errorMessage={password_error}
+                />
+                <Button
+                    title="Login"
+                    style={{ marginTop: 10 }}
+                    onPress={login}
+                />
+            </View>
+        </>
+    );
 }
