@@ -2,7 +2,9 @@ import React, { useState } from "react";
 import { View } from "react-native";
 import { Input, Button } from "react-native-elements";
 import { AsyncStorage } from "react-native";
+
 import AuthContainer from "../AuthContainer";
+import apiCaller from "../utils/api_caller";
 
 export default function Login() {
     const [username, setUsername] = useState();
@@ -36,7 +38,7 @@ export default function Login() {
                 <Input
                     label="Password"
                     secureTextEntry={true}
-                    onChangeText={this.setPassword}
+                    onChangeText={setPassword}
                     value={password}
                     errorStyle={{ color: "red" }}
                     labelStyle={{ marginTop: 10 }}

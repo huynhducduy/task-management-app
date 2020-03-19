@@ -10,6 +10,10 @@ import { ThemeProvider } from "react-native-elements";
 
 import AuthContainer from "./app/AuthContainer";
 import Navigation from "./app/Navigation";
+import config from "./app/config";
+import isAuthenticated from "./app/utils/auth/isAuthenticated.js";
+
+isAuthenticated().then(d => console.log(d));
 
 export default function App() {
     return (
