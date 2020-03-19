@@ -12,6 +12,7 @@ module.exports = function(api) {
             "@babel/plugin-proposal-export-default-from",
             "@babel/plugin-proposal-export-namespace-from",
             "date-fns",
+            "ramda",
         ],
     };
 };

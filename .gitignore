@@ -16,3 +16,4 @@ web-report/
 package.lock
 
 .env
+.log
