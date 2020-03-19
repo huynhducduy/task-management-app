@@ -10,6 +10,8 @@
         "postinstall": "rndebugger-open --expo"
     },
     "dependencies": {
+        "@babel/plugin-proposal-export-default-from": "^7.8.3",
+        "@babel/plugin-proposal-export-namespace-from": "^7.8.3",
         "@react-native-community/masked-view": "0.1.5",
         "@react-navigation/bottom-tabs": "^5.1.1",
         "@react-navigation/native": "^5.0.9",
