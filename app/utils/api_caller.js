@@ -55,7 +55,7 @@ export async function request({
             ...custom,
         });
     } catch (err) {
-        console.error(err);
+        console.log(err);
         throw err;
     }
 }
