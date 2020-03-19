@@ -18,7 +18,7 @@ export default async function() {
             ? access_token_expire_at
             : 0;
     } catch (error) {
-        console.error(error);
+        console.log(error);
         throw error;
     }
 }

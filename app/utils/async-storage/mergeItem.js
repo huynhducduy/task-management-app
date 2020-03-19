@@ -6,10 +6,15 @@ export default async (key, value, callback = function() {}) => {
         if (Array.isArray(key))
             await AsyncStorage.multiMerge(
                 key.map(k => generateKey(k)),
-                value,
+                value.map(k => k + ""),
                 callback
             );
-        else await AsyncStorage.mergeItem(generateKey(key), value, callback);
+        else
+            await AsyncStorage.mergeItem(
+                generateKey(key),
+                value + "",
+                callback
+            );
         return;
     } catch (error) {
         throw error;

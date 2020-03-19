@@ -6,7 +6,7 @@ export default async function isAuthenticated() {
         if (value !== null) return true;
         else return false;
     } catch (error) {
-        console.error(error);
+        console.log(error);
         return false;
     }
 }

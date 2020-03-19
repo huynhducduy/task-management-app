@@ -6,7 +6,7 @@ export default async function() {
     try {
         return !!(await getAccessToken()) && !(await tokenIsExpired());
     } catch (error) {
-        console.error(error);
+        console.log(error);
         return false;
     }
 }

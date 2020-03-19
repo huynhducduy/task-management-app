@@ -7,7 +7,7 @@ export default async function() {
             constants.ASYNC_STORAGE_KEY.ACCESS_TOKEN
         );
     } catch (err) {
-        console.error(err);
+        console.log(err);
         throw err;
     }
 }

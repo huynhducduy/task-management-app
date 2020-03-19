@@ -14,7 +14,7 @@ export default async function() {
             ) !== 1
         );
     } catch (error) {
-        console.error(error);
+        console.log(error);
         throw error;
     }
 }

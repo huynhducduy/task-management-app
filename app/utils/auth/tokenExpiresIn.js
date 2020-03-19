@@ -8,7 +8,7 @@ export default async function() {
             new Date()
         );
     } catch (err) {
-        console.error(err);
+        console.log(err);
         throw err;
     }
 }

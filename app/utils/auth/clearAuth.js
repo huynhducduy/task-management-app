@@ -9,7 +9,7 @@ export default async function() {
         await setAccessTokenExpiresAt();
         return;
     } catch (err) {
-        console.error(err);
+        console.log(err);
         throw err;
     }
 }

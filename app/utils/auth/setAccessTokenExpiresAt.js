@@ -1,16 +1,23 @@
 import { isEmpty } from "ramda";
-import constants from "../constants";
+import constants from "./constants";
 
-import setItem from "../../local-storage/setItem";
-import removeItem from "../../local-storage/removeItem";
+import setItem from "../async-storage/setItem";
+import removeItem from "../async-storage/removeItem";
 
-export default function(expires_at = "") {
-    if (isEmpty(expires_at))
-        removeItem(constants.LOCAL_STORAGE_KEY.ACCESS_TOKEN_EXPIRES_AT);
-    else {
-        setItem(
-            constants.LOCAL_STORAGE_KEY.ACCESS_TOKEN_EXPIRES_AT,
-            expires_at
-        );
+export default async function(expires_at = "") {
+    try {
+        if (isEmpty(expires_at))
+            await removeItem(
+                constants.ASYNC_STORAGE_KEY.ACCESS_TOKEN_EXPIRES_AT
+            );
+        else {
+            await setItem(
+                constants.ASYNC_STORAGE_KEY.ACCESS_TOKEN_EXPIRES_AT,
+                expires_at
+            );
+        }
+    } catch (err) {
+        console.log(err);
+        throw err;
     }
 }
