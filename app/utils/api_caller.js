@@ -6,24 +6,30 @@ const config = {
   timeout: 0,
 };
 
-function defaultHeaders() {
-  const headers = {};
+async function defaultHeaders() {
+  try {
+    const headers = {};
 
-  headers['Content-Type'] = 'application/json';
+    headers['Content-Type'] = 'application/json';
 
-  const accessToken = authHelpers.getAccessToken();
-  if (accessToken !== null && !authHelpers.tokenIsExpired)
-    headers.Authorization = `Bearer ${accessToken}`;
+    const accessToken = await authHelpers.getAccessToken();
 
-  return headers;
+    if (accessToken !== null && !(await authHelpers.tokenIsExpired()))
+      headers.Authorization = `Bearer ${accessToken}`;
+
+    return headers;
+  } catch (err) {
+    console.log(err);
+    throw err;
+  }
 }
 
 export async function request({
   to,
   method = 'GET',
-  data = {},
-  params = {},
-  headers = {},
+  data,
+  params,
+  headers,
   custom,
 }) {
   try {
@@ -59,7 +65,7 @@ export async function request({
   }
 }
 
-export function Get({ to, data = {}, params = {}, headers = {} }) {
+export function Get({ to, data, params, headers }) {
   return request({
     to,
     method: 'GET',
@@ -69,7 +75,7 @@ export function Get({ to, data = {}, params = {}, headers = {} }) {
   });
 }
 
-export function Post({ to, data = {}, params = {}, headers = {} }) {
+export function Post({ to, data, params, headers }) {
   return request({
     to,
     method: 'POST',
@@ -79,7 +85,7 @@ export function Post({ to, data = {}, params = {}, headers = {} }) {
   });
 }
 
-export function Put({ to, data = {}, params = {}, headers = {} }) {
+export function Put({ to, data, params, headers }) {
   return request({
     to,
     method: 'PUT',
@@ -89,7 +95,7 @@ export function Put({ to, data = {}, params = {}, headers = {} }) {
   });
 }
 
-export function Patch({ to, data = {}, params = {}, headers = {} }) {
+export function Patch({ to, data, params, headers }) {
   return request({
     to,
     method: 'PATCH',
@@ -99,7 +105,7 @@ export function Patch({ to, data = {}, params = {}, headers = {} }) {
   });
 }
 
-export function Options({ to, data = {}, params = {}, headers = {} }) {
+export function Options({ to, data, params, headers }) {
   return request({
     to,
     method: 'OPTIONS',
@@ -109,7 +115,7 @@ export function Options({ to, data = {}, params = {}, headers = {} }) {
   });
 }
 
-export function Head({ to, data = {}, params = {}, headers = {} }) {
+export function Head({ to, data, params, headers }) {
   return request({
     to,
     method: 'HEAD',
@@ -119,7 +125,7 @@ export function Head({ to, data = {}, params = {}, headers = {} }) {
   });
 }
 
-export function Delete({ to, data = {}, params = {}, headers = {} }) {
+export function Delete({ to, data, params, headers }) {
   return request({
     to,
     method: 'DELETE',
