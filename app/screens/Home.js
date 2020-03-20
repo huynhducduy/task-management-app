@@ -14,7 +14,7 @@ export default function Home() {
     <Tab.Navigator
       screenOptions={() => ({
         tabBarIcon: ({ color, size }) => {
-          const iconName = 'ios-information-circle';
+          const iconName = 'weekend';
 
           return <Icon name={iconName} size={size} color={color} />;
         },
