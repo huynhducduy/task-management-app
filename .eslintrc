@@ -1,0 +1,83 @@
+{
+  "extends": [
+    "airbnb",
+    "airbnb/hooks",
+    "airbnb-typescript",
+    "prettier/@typescript-eslint",
+    "prettier/react",
+    "prettier/babel",
+    "plugin:prettier/recommended"
+  ],
+  "parser": "@typescript-eslint/parser",
+  "plugins": [
+    "react",
+    "react-native",
+    "babel",
+    "import",
+    "jsx-a11y",
+    "react-hooks",
+    "@typescript-eslint",
+    "promise",
+    "simple-import-sort",
+    "sort-class-members"
+  ],
+  "rules": {
+    "no-console": "off",
+    "react/prop-types": "off",
+    "func-names": ["error", "as-needed"],
+    "react/jsx-filename-extension": [
+      1,
+      { "extensions": [".js", ".jsx", ".ts", ".tsx"] }
+    ],
+    "simple-import-sort/sort": "error",
+    "sort-imports": "off",
+    "import/order": "off",
+    "sort-class-members/sort-class-members": [
+      2,
+      {
+        "order": [
+          "[static-properties]",
+          "[static-methods]",
+          "[properties]",
+          "[conventional-private-properties]",
+          "constructor",
+          "[methods]",
+          "[conventional-private-methods]"
+        ],
+        "accessorPairPositioning": "getThenSet"
+      }
+    ]
+  },
+  "settings": {
+    "import/parsers": {
+      "@typescript-eslint/parser": [".ts", ".tsx"]
+    },
+    "react": {
+      "version": "detect"
+    },
+    "import/resolver": {
+      "typescript": {
+        "alwaysTryTypes": true
+      },
+      "node": {
+        "extensions": [".js", ".jsx", ".json", ".ts", ".tsx"],
+        "paths": ["app"]
+      }
+    }
+  },
+  "env": {
+    "es6": true,
+    "node": true,
+    "worker": true,
+    "react-native/react-native": true
+  },
+  "parserOptions": {
+    "ecmaVersion": 6,
+    "sourceType": "module",
+    "ecmaFeatures": {
+      "jsx": true
+    },
+    "project": "./tsconfig.json"
+  },
+  "globals": {}
+}
