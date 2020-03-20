@@ -1,10 +1,3 @@
-import { AsyncStorage } from "react-native";
+import { AsyncStorage } from 'react-native';
 
-export default async () => {
-    try {
-        await AsyncStorage.clear();
-        return;
-    } catch (error) {
-        throw error;
-    }
-};
+export default AsyncStorage.clear();

@@ -1,9 +1,3 @@
-import { AsyncStorage } from "react-native";
+import { AsyncStorage } from 'react-native';
 
-export default async () => {
-    try {
-        return AsyncStorage.getAllKeys();
-    } catch (error) {
-        throw error;
-    }
-};
+export default AsyncStorage.getAllKeys();

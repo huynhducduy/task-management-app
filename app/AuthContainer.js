@@ -1,7 +1,7 @@
-import { createContainer } from "unstated-next";
-import React, { useState } from "react";
+import { useState } from 'react';
+import { createContainer } from 'unstated-next';
 
-export default createContainer(function(initialState = false) {
-    let [isLoggedIn, setLoggedIn] = useState(initialState);
-    return { isLoggedIn, setLoggedIn };
+export default createContainer((initialState = false) => {
+  const [isLoggedIn, setLoggedIn] = useState(initialState);
+  return { isLoggedIn, setLoggedIn };
 });
