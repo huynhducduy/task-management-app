@@ -28,7 +28,7 @@ export default function GroupDetails({ route, navigation }) {
       Get({ to: endpoint(GROUP, { id }) })
         .then(res => {
           console.log(res.data);
-          navigation.setParams({ title: res.data.name });
+          navigation.setOptions({ title: res.data.name });
         })
         .catch(err => {
           console.log('WTF', err.response);

@@ -1,9 +1,11 @@
-import React, { useEffect, useState } from 'react';
+import { useFocusEffect } from '@react-navigation/native';
+import React, { useCallback, useLayoutEffect, useState } from 'react';
 import { FlatList } from 'react-native';
-import { ListItem } from 'react-native-elements';
+import { Button, Icon, ListItem } from 'react-native-elements';
 
 import { GROUPS } from '../endpoints';
 import { Get } from '../utils/api_caller';
+import randomString from '../utils/randomString';
 
 export default function GroupList({ navigation }) {
   const [groups, setGroups] = useState([]);
@@ -18,9 +20,35 @@ export default function GroupList({ navigation }) {
       });
   }
 
-  useEffect(() => {
-    loadData();
-  }, []);
+  useLayoutEffect(() => {
+    navigation.setOptions({
+      title: 'Groups',
+      headerLeft: () => (
+        <Button
+          onPress={loadData}
+          icon={<Icon name="reload" type="material-community" />}
+          color="#fff"
+          type="clear"
+        />
+      ),
+      headerRight: () => (
+        <Button
+          onPress={() => navigation.navigate('GroupCreate')}
+          icon={<Icon name="plus" type="entypo" />}
+          color="#fff"
+          type="clear"
+        />
+      ),
+    });
+  }, [navigation]);
+
+  useFocusEffect(
+    useCallback(function onFocus() {
+      // navigation.setParams({ load: loadData });
+      loadData();
+    }, []),
+    []
+  );
 
   function keyExtractor(item, index) {
     index.toString();
@@ -33,6 +61,7 @@ export default function GroupList({ navigation }) {
   function renderItem({ item }) {
     return (
       <ListItem
+        key={randomString(3)}
         title={item.name}
         onPress={() => onPress(item.id)}
         bottomDivider

@@ -12,11 +12,35 @@ const Tab = createBottomTabNavigator();
 export default function Home() {
   return (
     <Tab.Navigator
-      screenOptions={() => ({
-        tabBarIcon: ({ color, size }) => {
-          const iconName = 'weekend';
+      screenOptions={({ route }) => ({
+        tabBarIcon: ({ focused, color, size }) => {
+          let iconName;
 
-          return <Icon name={iconName} size={size} color={color} />;
+          switch (route.name) {
+            case 'Group':
+              iconName = focused ? 'account-group' : 'account-group-outline';
+              break;
+            case 'Task':
+              iconName = focused ? 'card-text' : 'card-text-outline';
+              break;
+            case 'Quick View':
+              iconName = focused ? 'clipboard-text' : 'clipboard-text-outline';
+              break;
+            case 'Profile':
+              iconName = focused ? 'account' : 'account-outline';
+              break;
+            default:
+              break;
+          }
+
+          return (
+            <Icon
+              name={iconName}
+              size={size}
+              color={color}
+              type="material-community"
+            />
+          );
         },
       })}
       tabBarOptions={{
