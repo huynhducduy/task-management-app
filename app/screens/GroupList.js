@@ -1,7 +1,12 @@
 import { useFocusEffect } from '@react-navigation/native';
+import {
+  Icon,
+  List,
+  ListItem,
+  TopNavigation,
+  TopNavigationAction,
+} from '@ui-kitten/components';
 import React, { useCallback, useLayoutEffect, useState } from 'react';
-import { FlatList } from 'react-native';
-import { Button, Icon, ListItem } from '@ui-kitten/components';
 
 import { GROUPS } from '../endpoints';
 import { Get } from '../utils/api_caller';
@@ -20,62 +25,43 @@ export default function GroupList({ navigation }) {
       });
   }
 
-  useLayoutEffect(() => {
-    navigation.setOptions({
-      title: 'Groups',
-      headerLeft: () => (
-        <Button
-          onPress={loadData}
-          icon={<Icon name="reload" type="material-community" />}
-          color="#fff"
-          type="clear"
-        />
-      ),
-      headerRight: () => (
-        <Button
-          onPress={() => navigation.navigate('GroupCreate')}
-          icon={<Icon name="plus" type="entypo" />}
-          color="#fff"
-          type="clear"
-        />
-      ),
-    });
-  }, [navigation]);
-
-  useFocusEffect(
-    useCallback(function onFocus() {
-      // navigation.setParams({ load: loadData });
-      loadData();
-    }, []),
-    []
-  );
-
-  function keyExtractor(item, index) {
-    index.toString();
-  }
+  useFocusEffect(useCallback(loadData, []), []);
 
   function onPress(id) {
     navigation.navigate('GroupDetails', { id });
   }
 
-  function renderItem({ item }) {
+  function renderItem({ item, index }) {
     return (
       <ListItem
-        key={randomString(3)}
+        key={index}
         title={item.name}
         onPress={() => onPress(item.id)}
-        subtitle={item.description}
-        subtitleStyle={{ fontSize: 12 }}
-        bottomDivider
-        chevron
+        description={item.description}
+        descriptionStyle={{ fontSize: 12 }}
+        accessory={style => <Icon {...style} name="arrow-right" />}
       />
     );
   }
   return (
-    <FlatList
-      keyExtractor={keyExtractor}
-      data={groups}
-      renderItem={renderItem}
-    />
+    <>
+      <TopNavigation
+        title="Group"
+        alignment="center"
+        style={{
+          backgroundColor: 'rgb(51, 102, 255)',
+        }}
+        titleStyle={{ color: 'white', fontSize: 18 }}
+        rightControls={
+          <TopNavigationAction
+            icon={style => (
+              <Icon {...style} style={{ color: 'white' }} name="plus" />
+            )}
+            onPress={() => navigation.navigate('GroupCreate')}
+          />
+        }
+      />
+      <List data={groups} renderItem={renderItem} />
+    </>
   );
 }

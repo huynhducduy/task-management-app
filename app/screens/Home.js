@@ -3,11 +3,8 @@ import {
   BottomNavigation,
   BottomNavigationTab,
   Icon,
-  Layout,
-  Text,
 } from '@ui-kitten/components';
 import React from 'react';
-import { SafeAreaView } from 'react-native';
 
 import Group from './Group';
 import QuickView from './Notification';
@@ -21,18 +18,14 @@ const BottomTabBar = ({ navigation, state }) => {
     navigation.navigate(state.routeNames[index]);
   };
 
-  // iconName = focused ? 'account-group' : 'account-group-outline';
-  // iconName = focused ? 'account' : 'account-outline';
-
   return (
-    // <SafeAreaView style={{ backgroundColor: 'white' }}>
-    <BottomNavigation
-      // appearance="noIndicator"
-      selectedIndex={state.index}
-      onSelect={onSelect}
-    >
+    <BottomNavigation selectedIndex={state.index} onSelect={onSelect}>
       <BottomNavigationTab
-        title="Tasks"
+        title="Group"
+        icon={style => <Icon {...style} name="account-group" />}
+      />
+      <BottomNavigationTab
+        title="Task"
         icon={style => <Icon {...style} name="clipboard-text" />}
       />
       <BottomNavigationTab
@@ -44,14 +37,13 @@ const BottomTabBar = ({ navigation, state }) => {
         icon={style => <Icon {...style} name="account" />}
       />
     </BottomNavigation>
-    // </SafeAreaView>
   );
 };
 
 export default function Home() {
   return (
     <Tab.Navigator tabBar={props => <BottomTabBar {...props} />}>
-      {/* <Tab.Screen name="Group" component={Group} /> */}
+      <Tab.Screen name="Group" component={Group} />
       <Tab.Screen name="Task" component={Task} />
       <Tab.Screen name="Notification" component={QuickView} />
       <Tab.Screen name="Profile" component={Profile} />

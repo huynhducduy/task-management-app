@@ -10,26 +10,13 @@ const Stack = createStackNavigator();
 
 export default function Group() {
   return (
-    <Stack.Navigator>
+    <Stack.Navigator headerMode="none">
       <Stack.Screen name="GroupList" component={GroupList} />
-      <Stack.Screen
-        name="GroupDetails"
-        component={GroupDetails}
-        options={{ title: '' }}
-      />
-      <Stack.Screen
-        name="GroupCreate"
-        component={GroupCreate}
-        options={{
-          title: 'Create group',
-        }}
-      />
+      <Stack.Screen name="GroupDetails" component={GroupDetails} />
+      <Stack.Screen name="GroupCreate" component={GroupCreate} />
       <Stack.Screen
         name="ProfileView"
         component={ProfileView}
-        options={{
-          title: 'profile',
-        }}
         initialParams={{ from: 'Group' }}
       />
     </Stack.Navigator>
