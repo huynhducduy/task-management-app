@@ -1,6 +1,6 @@
+import { Button } from '@ui-kitten/components';
 import React from 'react';
 import { View } from 'react-native';
-import { Button } from 'react-native-elements';
 
 import AuthContainer from '../AuthContainer';
 

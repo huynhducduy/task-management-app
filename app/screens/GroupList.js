@@ -1,7 +1,7 @@
 import { useFocusEffect } from '@react-navigation/native';
 import React, { useCallback, useLayoutEffect, useState } from 'react';
 import { FlatList } from 'react-native';
-import { Button, Icon, ListItem } from 'react-native-elements';
+import { Button, Icon, ListItem } from '@ui-kitten/components';
 
 import { GROUPS } from '../endpoints';
 import { Get } from '../utils/api_caller';
@@ -64,6 +64,8 @@ export default function GroupList({ navigation }) {
         key={randomString(3)}
         title={item.name}
         onPress={() => onPress(item.id)}
+        subtitle={item.description}
+        subtitleStyle={{ fontSize: 12 }}
         bottomDivider
         chevron
       />

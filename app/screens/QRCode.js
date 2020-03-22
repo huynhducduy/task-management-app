@@ -1,10 +1,17 @@
+import {
+  Icon,
+  Layout,
+  Tab,
+  TabView,
+  TopNavigation,
+  TopNavigationAction,
+} from '@ui-kitten/components';
 import { BarCodeScanner } from 'expo-barcode-scanner';
 import React, { useEffect, useState } from 'react';
-import { StyleSheet, Text, View } from 'react-native';
-import { Button, ButtonGroup } from 'react-native-elements';
+import { StyleSheet, Text } from 'react-native';
 import QRCodeSvg from 'react-native-qrcode-svg';
 
-function Scanner() {
+function Scanner({ navigation }) {
   const [hasPermission, setHasPermission] = useState(null);
   const [scanned, setScanned] = useState(false);
 
@@ -18,7 +25,7 @@ function Scanner() {
   const handleBarCodeScanned = ({ type, data }) => {
     if (type === 'org.iso.QRCode') {
       setScanned(true);
-      alert(`Bar code with type ${type} and data ${data} has been scanned!`);
+      navigation.navigate('ProfileView', { id: data });
     }
   };
 
@@ -27,50 +34,59 @@ function Scanner() {
   }
 
   return (
-    <View
+    <Layout
       style={{
         flex: 1,
-        flexDirection: 'column',
-        justifyContent: 'flex-end',
         minWidth: '100%',
+        minHeight: '100%',
       }}
     >
       <BarCodeScanner
         onBarCodeScanned={scanned ? undefined : handleBarCodeScanned}
         style={StyleSheet.absoluteFillObject}
       />
-
-      <Text />
-
-      {scanned && (
-        <Button title="Tap to Scan Again" onPress={() => setScanned(false)} />
-      )}
-    </View>
+    </Layout>
   );
 }
 
-export default function ProfileView() {
+export default function ProfileView({ navigation }) {
   const [index, setIndex] = useState(0);
 
-  const buttons = ['Show', 'Scan'];
-
   return (
-    <View
-      style={{
-        flex: 1,
-        justifyContent: 'top',
-        alignItems: 'center',
-        marginTop: 10,
-      }}
-    >
-      <ButtonGroup onPress={setIndex} selectedIndex={index} buttons={buttons} />
-      <View
-        style={{
-          marginTop: 10,
-        }}
-      >
-        {index === 0 ? <QRCodeSvg value="1" size={200} /> : <Scanner />}
-      </View>
-    </View>
+    <Layout style={{ flex: 1, minHeight: '100%' }}>
+      <TopNavigation
+        title="QR Code"
+        alignment="center"
+        leftControl={
+          <TopNavigationAction
+            icon={style => <Icon {...style} name="arrow-left" />}
+            onPress={() => navigation.goBack()}
+          />
+        }
+      />
+      <TabView selectedIndex={index} onSelect={setIndex}>
+        <Tab icon={style => <Icon {...style} name="qrcode" />}>
+          <Layout
+            style={{
+              minHeight: '100%',
+              minWidth: '100%',
+              justifyContent: 'center',
+              alignItems: 'center',
+            }}
+          >
+            <Layout
+              style={{
+                transform: [{ translateY: '-100%' }],
+              }}
+            >
+              <QRCodeSvg value="1" size={250} />
+            </Layout>
+          </Layout>
+        </Tab>
+        <Tab icon={style => <Icon {...style} name="qrcode-scan" />}>
+          <Scanner navigation={navigation} />
+        </Tab>
+      </TabView>
+    </Layout>
   );
 }

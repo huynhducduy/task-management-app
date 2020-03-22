@@ -1,50 +1,126 @@
-import React, { useLayoutEffect } from 'react';
-import { View } from 'react-native';
-import { Button, Icon, ListItem } from 'react-native-elements';
+import {
+  Button,
+  Icon,
+  Input,
+  Layout,
+  TopNavigation,
+  TopNavigationAction,
+} from '@ui-kitten/components';
+import React, {
+  useCallback,
+  useEffect,
+  useLayoutEffect,
+  useState,
+} from 'react';
 
-import AuthContainer from '../AuthContainer';
-import clearAuth from '../utils/auth/clearAuth';
+import { endpoint, ME, USER } from '../endpoints';
+import { Get } from '../utils/api_caller';
 
-export default function ProfileView({ navigation }) {
-  const auth = AuthContainer.useContainer();
+export default function ProfileView({ navigation, route }) {
+  const [username, setUsername] = useState();
+  const [fullName, setFullName] = useState();
+  const [groupId, setGroupId] = useState();
 
-  function logout() {
-    clearAuth().then(() => {
-      auth.setLoggedIn(false);
-    });
+  function save() {
+    navigation.goBack();
   }
+
+  function remove() {
+    navigation.goBack();
+  }
+
+  const loadData = useCallback(function loadData(thisId) {
+    let to;
+
+    if (thisId === 'me') to = ME;
+    else to = endpoint(USER, { id: thisId });
+
+    Get({ to })
+      .then(res => {
+        setUsername(res.data.username);
+        setFullName(res.data.full_name);
+        setGroupId(res.data.group_id == null ? '' : `${res.data.group_id}`);
+      })
+      .catch(err => {
+        console.log('WTF', err.response);
+      });
+  }, []);
+
+  useEffect(() => {
+    loadData(route.params.id);
+  }, [route.params.id, loadData]);
 
   useLayoutEffect(() => {
     navigation.setOptions({
-      title: 'Profile',
-      headerLeft: () => (
-        <Button
-          onPress={() => navigation.navigate('QRCode')}
-          icon={<Icon name="qrcode" type="material-community" />}
-          color="#fff"
-          type="clear"
-        />
-      ),
-      headerRight: () => (
-        <Button
-          onPress={() => navigation.navigate('GroupCreate')}
-          icon={<Icon name="menu" type="entypo" />}
-          color="#fff"
-          type="clear"
-        />
-      ),
+      title: 'View Profile',
     });
   }, [navigation]);
-
   return (
-    <View>
-      <ListItem
-        key={1}
-        leftAvatar={<Icon name="logout" type="material-community" />}
-        title="Logout"
-        bottomDivider
-        onPress={logout}
+    <>
+      <TopNavigation
+        title="Profile Details"
+        alignment="center"
+        style={{
+          backgroundColor: 'rgb(51, 102, 255)',
+        }}
+        titleStyle={{ color: 'white', fontSize: 18 }}
+        leftControl={
+          <TopNavigationAction
+            icon={style => (
+              <Icon {...style} style={{ color: 'white' }} name="arrow-left" />
+            )}
+            onPress={() => navigation.goBack()}
+          />
+        }
       />
-    </View>
+      <Layout
+        style={{
+          flex: 1,
+          justifyContent: 'top',
+          alignItems: 'center',
+          paddingHorizontal: 10,
+        }}
+      >
+        <Input
+          label="Username"
+          errorStyle={{ color: 'red' }}
+          value={username}
+          onChangeText={setUsername}
+          labelStyle={{ marginTop: 10 }}
+        />
+        <Input
+          label="Full name"
+          onChangeText={setFullName}
+          value={fullName}
+          errorStyle={{ color: 'red' }}
+          labelStyle={{ marginTop: 10 }}
+        />
+        <Input
+          label="Group Id"
+          errorStyle={{ color: 'red' }}
+          value={groupId}
+          onChangeText={setGroupId}
+          labelStyle={{ marginTop: 10 }}
+          keyboardType="number-pad"
+        />
+        <Layout
+          style={{
+            flexDirection: 'row',
+            justifyContent: 'space-between',
+          }}
+        >
+          <Button title="Save" style={{ marginTop: 10 }} onPress={save}>
+            Save
+          </Button>
+          <Button
+            style={{ marginTop: 10, marginLeft: 10 }}
+            status="danger"
+            onPress={remove}
+          >
+            Delete
+          </Button>
+        </Layout>
+      </Layout>
+    </>
   );
 }

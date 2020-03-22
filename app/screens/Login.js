@@ -1,6 +1,6 @@
+import { Button, Input, Layout } from '@ui-kitten/components';
 import React, { useState } from 'react';
-import { Alert, View } from 'react-native';
-import { Button, Input } from 'react-native-elements';
+import { Alert } from 'react-native';
 
 import AuthContainer from '../AuthContainer';
 import { LOGIN } from '../endpoints';
@@ -40,31 +40,33 @@ export default function Login() {
   };
 
   return (
-    <>
-      <View
-        style={{
-          flex: 1,
-          justifyContent: 'top',
-          alignItems: 'center',
-        }}
-      >
-        <Input
-          label="Username"
-          errorStyle={{ color: 'red' }}
-          value={username}
-          onChangeText={setUsername}
-          labelStyle={{ marginTop: 10 }}
-        />
-        <Input
-          label="Password"
-          secureTextEntry
-          onChangeText={setPassword}
-          value={password}
-          errorStyle={{ color: 'red' }}
-          labelStyle={{ marginTop: 10 }}
-        />
-        <Button title="Login" style={{ marginTop: 10 }} onPress={login} />
-      </View>
-    </>
+    <Layout
+      style={{
+        flex: 1,
+        justifyContent: 'top',
+        alignItems: 'center',
+        paddingHorizontal: 10,
+      }}
+    >
+      <Input
+        label="Username"
+        errorStyle={{ color: 'red' }}
+        value={username}
+        onChangeText={setUsername}
+        labelStyle={{ marginTop: 10 }}
+        keyboardType="default"
+      />
+      <Input
+        label="Password"
+        secureTextEntry
+        onChangeText={setPassword}
+        value={password}
+        errorStyle={{ color: 'red' }}
+        labelStyle={{ marginTop: 10 }}
+      />
+      <Button style={{ marginTop: 10 }} onPress={login}>
+        Login
+      </Button>
+    </Layout>
   );
 }

@@ -19,7 +19,7 @@ export default function() {
 
   return (
     <NavigationContainer>
-      <Stack.Navigator headerMode={auth.isLoggedIn ? 'none' : 'float'}>
+      <Stack.Navigator headerMode="none">
         {!auth.isLoggedIn ? (
           <>
             <Stack.Screen

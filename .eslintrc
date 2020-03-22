@@ -22,6 +22,7 @@
     "sort-class-members"
   ],
   "rules": {
+    "react/jsx-props-no-spreading": "off",
     "no-console": "off",
     "react/prop-types": "off",
     "func-names": ["error", "as-needed"],

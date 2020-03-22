@@ -1,20 +1,24 @@
+import { Button, Icon, Layout } from '@ui-kitten/components';
 import PropTypes from 'prop-types';
 import React from 'react';
-import { View } from 'react-native';
-import { Button } from 'react-native-elements';
 
 export default function Walkthrough({ navigation }) {
   return (
-    <View
+    <Layout
       style={{
         flex: 1,
         alignItems: 'center',
         justifyContent: 'top',
-        marginTop: 10,
+        paddingTop: 10,
       }}
     >
-      <Button title="Login" onPress={() => navigation.navigate('Login')} />
-    </View>
+      <Button
+        icon={style => <Icon name="login-variant" {...style} />}
+        onPress={() => navigation.navigate('Login')}
+      >
+        Login
+      </Button>
+    </Layout>
   );
 }
 

@@ -9,7 +9,7 @@ export function endpoint(url, data) {
 export const LOGIN = `${config.api_url}auth/login`;
 export const ME = `${config.api_url}me`;
 export const USERS = `${config.api_url}user`;
-export const USER = `${USERS}/user/{id}`;
+export const USER = `${USERS}/{id}`;
 export const GROUPS = `${config.api_url}group`;
 export const GROUPS_ADDABLES = `${GROUPS}/addables`;
 export const GROUP = `${GROUPS}/{id}`;

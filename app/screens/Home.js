@@ -1,56 +1,59 @@
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import {
+  BottomNavigation,
+  BottomNavigationTab,
+  Icon,
+  Layout,
+  Text,
+} from '@ui-kitten/components';
 import React from 'react';
-import { Icon } from 'react-native-elements';
+import { SafeAreaView } from 'react-native';
 
 import Group from './Group';
+import QuickView from './Notification';
 import Profile from './Profile';
-import QuickView from './QuickView';
 import Task from './Task';
 
 const Tab = createBottomTabNavigator();
 
+const BottomTabBar = ({ navigation, state }) => {
+  const onSelect = index => {
+    navigation.navigate(state.routeNames[index]);
+  };
+
+  // iconName = focused ? 'account-group' : 'account-group-outline';
+  // iconName = focused ? 'account' : 'account-outline';
+
+  return (
+    // <SafeAreaView style={{ backgroundColor: 'white' }}>
+    <BottomNavigation
+      // appearance="noIndicator"
+      selectedIndex={state.index}
+      onSelect={onSelect}
+    >
+      <BottomNavigationTab
+        title="Tasks"
+        icon={style => <Icon {...style} name="clipboard-text" />}
+      />
+      <BottomNavigationTab
+        title="Notification"
+        icon={style => <Icon {...style} name="bell" />}
+      />
+      <BottomNavigationTab
+        title="Profile"
+        icon={style => <Icon {...style} name="account" />}
+      />
+    </BottomNavigation>
+    // </SafeAreaView>
+  );
+};
+
 export default function Home() {
   return (
-    <Tab.Navigator
-      screenOptions={({ route }) => ({
-        tabBarIcon: ({ focused, color, size }) => {
-          let iconName;
-
-          switch (route.name) {
-            case 'Group':
-              iconName = focused ? 'account-group' : 'account-group-outline';
-              break;
-            case 'Task':
-              iconName = focused ? 'card-text' : 'card-text-outline';
-              break;
-            case 'Quick View':
-              iconName = focused ? 'clipboard-text' : 'clipboard-text-outline';
-              break;
-            case 'Profile':
-              iconName = focused ? 'account' : 'account-outline';
-              break;
-            default:
-              break;
-          }
-
-          return (
-            <Icon
-              name={iconName}
-              size={size}
-              color={color}
-              type="material-community"
-            />
-          );
-        },
-      })}
-      tabBarOptions={{
-        activeTintColor: 'tomato',
-        inactiveTintColor: 'gray',
-      }}
-    >
-      <Tab.Screen name="Group" component={Group} />
+    <Tab.Navigator tabBar={props => <BottomTabBar {...props} />}>
+      {/* <Tab.Screen name="Group" component={Group} /> */}
       <Tab.Screen name="Task" component={Task} />
-      <Tab.Screen name="Quick View" component={QuickView} />
+      <Tab.Screen name="Notification" component={QuickView} />
       <Tab.Screen name="Profile" component={Profile} />
     </Tab.Navigator>
   );
