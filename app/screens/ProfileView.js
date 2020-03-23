@@ -6,20 +6,20 @@ import {
   TopNavigation,
   TopNavigationAction,
 } from '@ui-kitten/components';
-import React, {
-  useCallback,
-  useEffect,
-  useLayoutEffect,
-  useState,
-} from 'react';
+import React, { useCallback, useLayoutEffect, useState } from 'react';
+import { SafeAreaView } from 'react-native';
 
+import Loader from '../components/loader';
 import { endpoint, ME, USER } from '../endpoints';
+import LoadingContainer from '../LoadingContainer';
 import { Get } from '../utils/api_caller';
 
 export default function ProfileView({ navigation, route }) {
   const [username, setUsername] = useState();
   const [fullName, setFullName] = useState();
   const [groupId, setGroupId] = useState();
+
+  const { setLoading } = LoadingContainer.useContainer();
 
   function save() {
     navigation.goBack();
@@ -29,13 +29,13 @@ export default function ProfileView({ navigation, route }) {
     navigation.goBack();
   }
 
-  const loadData = useCallback(function loadData(thisId) {
+  function loadData() {
     let to;
 
-    if (thisId === 'me') to = ME;
-    else to = endpoint(USER, { id: thisId });
+    if (route.params.id === 'me') to = ME;
+    else to = endpoint(USER, { id: route.params.id });
 
-    Get({ to })
+    Get({ to, setLoading })
       .then(res => {
         setUsername(res.data.username);
         setFullName(res.data.full_name);
@@ -44,19 +44,11 @@ export default function ProfileView({ navigation, route }) {
       .catch(err => {
         console.log('WTF', err.response);
       });
-  }, []);
+  }
 
-  useEffect(() => {
-    loadData(route.params.id);
-  }, [route.params.id, loadData]);
-
-  useLayoutEffect(() => {
-    navigation.setOptions({
-      title: 'View Profile',
-    });
-  }, [navigation]);
+  useLayoutEffect(useCallback(loadData, []), []);
   return (
-    <>
+    <SafeAreaView style={{ flex: 1, backgroundColor: 'white' }}>
       <TopNavigation
         title="Profile Details"
         alignment="center"
@@ -81,12 +73,14 @@ export default function ProfileView({ navigation, route }) {
           paddingHorizontal: 10,
         }}
       >
+        <Loader />
         <Input
           label="Username"
           errorStyle={{ color: 'red' }}
           value={username}
           onChangeText={setUsername}
           labelStyle={{ marginTop: 10 }}
+          autoCapitalize="none"
         />
         <Input
           label="Full name"
@@ -94,6 +88,7 @@ export default function ProfileView({ navigation, route }) {
           value={fullName}
           errorStyle={{ color: 'red' }}
           labelStyle={{ marginTop: 10 }}
+          autoCapitalize="none"
         />
         <Input
           label="Group Id"
@@ -102,6 +97,7 @@ export default function ProfileView({ navigation, route }) {
           onChangeText={setGroupId}
           labelStyle={{ marginTop: 10 }}
           keyboardType="number-pad"
+          autoCapitalize="none"
         />
         <Layout
           style={{
@@ -121,6 +117,6 @@ export default function ProfileView({ navigation, route }) {
           </Button>
         </Layout>
       </Layout>
-    </>
+    </SafeAreaView>
   );
 }

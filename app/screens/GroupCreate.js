@@ -57,12 +57,14 @@ export default function GroupCreate({ navigation }) {
           value={name}
           onChangeText={setName}
           labelStyle={{ marginTop: 10 }}
+          autoCapitalize="none"
         />
         <Input
           label="Description"
           value={description}
           onChangeText={setDescription}
           labelStyle={{ marginTop: 10 }}
+          autoCapitalize="none"
         />
         <Layout
           style={{

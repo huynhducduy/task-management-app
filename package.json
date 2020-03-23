@@ -11,10 +11,14 @@
     "refresh": "rm -rf ./node_modules yarn.lock && yarn"
   },
   "dependencies": {
+    "@eva-design/eva": "^1.4.0",
     "@react-native-community/masked-view": "0.1.5",
     "@react-navigation/bottom-tabs": "^5.1.1",
     "@react-navigation/native": "^5.0.9",
     "@react-navigation/stack": "^5.1.1",
+    "@ui-kitten/components": "^4.4.1",
+    "@ui-kitten/date-fns": "^4.4.1",
+    "@ui-kitten/metro-config": "^4.4.1",
     "axios": "^0.19.2",
     "babel-plugin-date-fns": "^2.0.0",
     "babel-plugin-inline-dotenv": "^1.5.0",
@@ -29,6 +33,7 @@
     "react": "~16.9.0",
     "react-dom": "~16.9.0",
     "react-native": "https://github.com/expo/react-native/archive/sdk-36.0.0.tar.gz",
+    "react-native-app-intro-slider": "^3.0.0",
     "react-native-elements": "^1.2.7",
     "react-native-gesture-handler": "~1.5.0",
     "react-native-qrcode-svg": "^6.0.3",
@@ -69,10 +74,5 @@
     "react-native-debugger-open": "^0.3.24",
     "typescript": "~3.6.3"
   },
-  "private": true,
-  "husky": {
-    "hooks": {
-      "pre-commit": "lint-staged"
-    }
-  }
+  "private": true
 }

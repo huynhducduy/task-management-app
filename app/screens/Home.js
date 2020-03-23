@@ -5,6 +5,7 @@ import {
   Icon,
 } from '@ui-kitten/components';
 import React from 'react';
+import { SafeAreaView } from 'react-native';
 
 import Group from './Group';
 import QuickView from './Notification';
@@ -19,24 +20,26 @@ const BottomTabBar = ({ navigation, state }) => {
   };
 
   return (
-    <BottomNavigation selectedIndex={state.index} onSelect={onSelect}>
-      <BottomNavigationTab
-        title="Group"
-        icon={style => <Icon {...style} name="account-group" />}
-      />
-      <BottomNavigationTab
-        title="Task"
-        icon={style => <Icon {...style} name="clipboard-text" />}
-      />
-      <BottomNavigationTab
-        title="Notification"
-        icon={style => <Icon {...style} name="bell" />}
-      />
-      <BottomNavigationTab
-        title="Profile"
-        icon={style => <Icon {...style} name="account" />}
-      />
-    </BottomNavigation>
+    <SafeAreaView style={{ backgroundColor: 'white' }}>
+      <BottomNavigation selectedIndex={state.index} onSelect={onSelect}>
+        <BottomNavigationTab
+          title="Group"
+          icon={style => <Icon {...style} name="account-group" />}
+        />
+        <BottomNavigationTab
+          title="Task"
+          icon={style => <Icon {...style} name="clipboard-text" />}
+        />
+        <BottomNavigationTab
+          title="Notification"
+          icon={style => <Icon {...style} name="bell" />}
+        />
+        <BottomNavigationTab
+          title="Profile"
+          icon={style => <Icon {...style} name="account" />}
+        />
+      </BottomNavigation>
+    </SafeAreaView>
   );
 };
 

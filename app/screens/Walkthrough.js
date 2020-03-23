@@ -1,29 +1,54 @@
-import { Button, Icon, Layout } from '@ui-kitten/components';
-import PropTypes from 'prop-types';
+import { Layout, Text } from '@ui-kitten/components';
 import React from 'react';
+import { Image, StatusBar } from 'react-native';
+import AppIntroSlider from 'react-native-app-intro-slider';
 
 export default function Walkthrough({ navigation }) {
-  return (
-    <Layout
-      style={{
-        flex: 1,
-        alignItems: 'center',
-        justifyContent: 'top',
-        paddingTop: 10,
-      }}
-    >
-      <Button
-        icon={style => <Icon name="login-variant" {...style} />}
-        onPress={() => navigation.navigate('Login')}
+  const slides = [
+    {
+      key: '1',
+      title: 'Lorem ipsum',
+      text: 'Dolor sit amet,\nconsectetur adipiscing elit',
+      image: require('../assets/intro/list.png'),
+      backgroundColor: '#091C7A',
+    },
+    {
+      key: '2',
+      title: 'Sed do eiusmod',
+      text: 'Tempor incididunt ut labore\net dolore magna aliqua',
+      image: require('../assets/intro/team.png'),
+      backgroundColor: '#00524C',
+    },
+  ];
+  const renderItem = ({ item }) => {
+    return (
+      <Layout
+        style={{
+          flex: 1,
+          backgroundColor: item.backgroundColor,
+          alignItems: 'center',
+          justifyContent: 'space-around',
+          paddingVertical: 100,
+        }}
       >
-        Login
-      </Button>
-    </Layout>
+        <Text category="h1" style={{ color: 'white' }}>
+          {item.title}
+        </Text>
+        <Image source={item.image} resizeMode="center" />
+        <Text category="h6" style={{ color: 'white' }}>
+          {item.text}
+        </Text>
+      </Layout>
+    );
+  };
+  return (
+    <>
+      <StatusBar barStyle="light-content" />
+      <AppIntroSlider
+        renderItem={renderItem}
+        slides={slides}
+        onDone={() => navigation.navigate('Login')}
+      />
+    </>
   );
 }
-
-Walkthrough.propTypes = {
-  navigation: PropTypes.shape({
-    navigate: PropTypes.func.isRequired,
-  }).isRequired,
-};

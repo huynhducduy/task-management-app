@@ -30,8 +30,10 @@ export async function request({
   data,
   params,
   headers,
-  custom,
+  setLoading = function() {},
+  ...custom
 }) {
+  setLoading(true);
   try {
     Promise.all([
       authHelpers.tokenIsAlmostExpired(),
@@ -58,79 +60,93 @@ export async function request({
       params,
       config,
       ...custom,
-    });
+    }).finally(() => setTimeout(() => setLoading(false), 500));
   } catch (err) {
     console.log(err);
     throw err;
   }
 }
 
-export function Get({ to, data, params, headers }) {
+export function Get({ to, data, params, headers, setLoading, ...custom }) {
   return request({
     to,
     method: 'GET',
     data,
     params,
     headers,
+    setLoading,
+    ...custom,
   });
 }
 
-export function Post({ to, data, params, headers }) {
+export function Post({ to, data, params, headers, setLoading, ...custom }) {
   return request({
     to,
     method: 'POST',
     data,
     params,
     headers,
+    setLoading,
+    ...custom,
   });
 }
 
-export function Put({ to, data, params, headers }) {
+export function Put({ to, data, params, headers, setLoading, ...custom }) {
   return request({
     to,
     method: 'PUT',
     data,
     params,
     headers,
+    setLoading,
+    ...custom,
   });
 }
 
-export function Patch({ to, data, params, headers }) {
+export function Patch({ to, data, params, headers, setLoading, ...custom }) {
   return request({
     to,
     method: 'PATCH',
     data,
     params,
     headers,
+    setLoading,
+    ...custom,
   });
 }
 
-export function Options({ to, data, params, headers }) {
+export function Options({ to, data, params, headers, setLoading, ...custom }) {
   return request({
     to,
     method: 'OPTIONS',
     data,
     params,
     headers,
+    setLoading,
+    ...custom,
   });
 }
 
-export function Head({ to, data, params, headers }) {
+export function Head({ to, data, params, headers, setLoading, ...custom }) {
   return request({
     to,
     method: 'HEAD',
     data,
     params,
     headers,
+    setLoading,
+    ...custom,
   });
 }
 
-export function Delete({ to, data, params, headers }) {
+export function Delete({ to, data, params, headers, setLoading, ...custom }) {
   return request({
     to,
     method: 'DELETE',
     data,
     params,
     headers,
+    setLoading,
+    ...custom,
   });
 }

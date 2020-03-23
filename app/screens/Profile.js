@@ -1,5 +1,6 @@
 import { createStackNavigator } from '@react-navigation/stack';
 import React from 'react';
+import { SafeAreaView, StatusBar } from 'react-native';
 
 import ProfileMenu from './ProfileMenu';
 import ProfileView from './ProfileView';
@@ -9,14 +10,17 @@ const Stack = createStackNavigator();
 
 export default function Profile() {
   return (
-    <Stack.Navigator initialRouteName="ProfileMenu" headerMode="none">
-      <Stack.Screen name="ProfileMenu" component={ProfileMenu} />
-      <Stack.Screen name="ProfileView" component={ProfileView} />
-      <Stack.Screen
-        name="QRCode"
-        component={QRCode}
-        options={{ title: 'QR' }}
-      />
-    </Stack.Navigator>
+    <SafeAreaView style={{ flex: 1, backgroundColor: 'rgb(51, 102, 255)' }}>
+      <StatusBar barStyle="light-content" />
+      <Stack.Navigator initialRouteName="ProfileMenu" headerMode="none">
+        <Stack.Screen name="ProfileMenu" component={ProfileMenu} />
+        <Stack.Screen name="ProfileView" component={ProfileView} />
+        <Stack.Screen
+          name="QRCode"
+          component={QRCode}
+          options={{ title: 'QR' }}
+        />
+      </Stack.Navigator>
+    </SafeAreaView>
   );
 }

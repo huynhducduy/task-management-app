@@ -7,28 +7,21 @@ import {
 import React from 'react';
 import { SafeAreaView, StatusBar } from 'react-native';
 
-export default function Notification({ navigation }) {
+export default function TaskCreate({ navigation }) {
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: 'rgb(51, 102, 255)' }}>
       <StatusBar barStyle="light-content" />
       <TopNavigation
         style={{ backgroundColor: 'rgb(51, 102, 255)' }}
         titleStyle={{ color: 'white', fontSize: 18 }}
-        title="Notification"
+        title="Create task"
         alignment="center"
         leftControl={
           <TopNavigationAction
             icon={style => (
-              <Icon {...style} style={{ color: 'white' }} name="reload" />
+              <Icon {...style} style={{ color: 'white' }} name="arrow-left" />
             )}
-            // onPress={loadData}
-          />
-        }
-        rightControls={
-          <TopNavigationAction
-            icon={style => (
-              <Icon {...style} style={{ color: 'white' }} name="check-all" />
-            )}
+            onPress={() => navigation.goBack()}
           />
         }
       />

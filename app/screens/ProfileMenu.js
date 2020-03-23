@@ -6,6 +6,7 @@ import {
   TopNavigationAction,
 } from '@ui-kitten/components';
 import React from 'react';
+import { SafeAreaView, StatusBar } from 'react-native';
 
 import AuthContainer from '../AuthContainer';
 import clearAuth from '../utils/auth/clearAuth';
@@ -20,7 +21,7 @@ export default function ProfileView({ navigation }) {
   }
 
   return (
-    <Layout style={{ flex: 1 }}>
+    <Layout>
       <TopNavigation
         title="Profile"
         alignment="center"
@@ -36,22 +37,14 @@ export default function ProfileView({ navigation }) {
             onPress={() => navigation.navigate('QRCode')}
           />
         }
-        // rightControls={
-        //   <OverflowMenu
-        //     placement="left"
-        //     visible={menuVisible}
-        //     data={menuData}
-        //     onSelect={onMenuItemSelect}
-        //     onBackdropPress={toggleMenu}
-        //   >
-        //     <TopNavigationAction
-        //       icon={style => <Icon {...style} name="menu" />}
-        //       onPress={toggleMenu}
-        //     />
-        //   </OverflowMenu>
-        // }
+        rightControls={
+          <TopNavigationAction
+            icon={style => (
+              <Icon {...style} style={{ color: 'white' }} name="plus" />
+            )}
+          />
+        }
       />
-
       <ListItem
         key={0}
         icon={() => <Icon name="account-box" />}

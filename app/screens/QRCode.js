@@ -8,7 +8,7 @@ import {
 } from '@ui-kitten/components';
 import { BarCodeScanner } from 'expo-barcode-scanner';
 import React, { useEffect, useState } from 'react';
-import { StyleSheet, Text } from 'react-native';
+import { SafeAreaView, StyleSheet, Text } from 'react-native';
 import QRCodeSvg from 'react-native-qrcode-svg';
 
 function Scanner({ navigation }) {
@@ -53,40 +53,48 @@ export default function ProfileView({ navigation }) {
   const [index, setIndex] = useState(0);
 
   return (
-    <Layout style={{ flex: 1, minHeight: '100%' }}>
-      <TopNavigation
-        title="QR Code"
-        alignment="center"
-        leftControl={
-          <TopNavigationAction
-            icon={style => <Icon {...style} name="arrow-left" />}
-            onPress={() => navigation.goBack()}
-          />
-        }
-      />
-      <TabView selectedIndex={index} onSelect={setIndex}>
-        <Tab icon={style => <Icon {...style} name="qrcode" />}>
-          <Layout
-            style={{
-              minHeight: '100%',
-              minWidth: '100%',
-              justifyContent: 'center',
-              alignItems: 'center',
-            }}
-          >
+    <SafeAreaView style={{ flex: 1, backgroundColor: 'white' }}>
+      <Layout style={{ flex: 1, minHeight: '100%' }}>
+        <TopNavigation
+          title="QR Code"
+          alignment="center"
+          style={{
+            backgroundColor: 'rgb(51, 102, 255)',
+          }}
+          titleStyle={{ color: 'white', fontSize: 18 }}
+          leftControl={
+            <TopNavigationAction
+              icon={style => (
+                <Icon {...style} style={{ color: 'white' }} name="arrow-left" />
+              )}
+              onPress={() => navigation.goBack()}
+            />
+          }
+        />
+        <TabView selectedIndex={index} onSelect={setIndex}>
+          <Tab icon={style => <Icon {...style} name="qrcode" />}>
             <Layout
               style={{
-                transform: [{ translateY: '-100%' }],
+                minHeight: '100%',
+                minWidth: '100%',
+                justifyContent: 'center',
+                alignItems: 'center',
               }}
             >
-              <QRCodeSvg value="1" size={250} />
+              <Layout
+                style={{
+                  transform: [{ translateY: '-100%' }],
+                }}
+              >
+                <QRCodeSvg value="1" size={250} />
+              </Layout>
             </Layout>
-          </Layout>
-        </Tab>
-        <Tab icon={style => <Icon {...style} name="qrcode-scan" />}>
-          <Scanner navigation={navigation} />
-        </Tab>
-      </TabView>
-    </Layout>
+          </Tab>
+          <Tab icon={style => <Icon {...style} name="qrcode-scan" />}>
+            <Scanner navigation={navigation} />
+          </Tab>
+        </TabView>
+      </Layout>
+    </SafeAreaView>
   );
 }
