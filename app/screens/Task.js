@@ -1,10 +1,4 @@
 import { createStackNavigator } from '@react-navigation/stack';
-import {
-  Icon,
-  Layout,
-  TopNavigation,
-  TopNavigationAction,
-} from '@ui-kitten/components';
 import React from 'react';
 import { SafeAreaView, StatusBar } from 'react-native';
 
@@ -15,7 +9,7 @@ import TaskList from './TaskList';
 
 const Stack = createStackNavigator();
 
-export default function Task({ navigation }) {
+export default function Task() {
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: 'rgb(51, 102, 255)' }}>
       <StatusBar barStyle="light-content" />

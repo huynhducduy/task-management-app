@@ -1,6 +1,5 @@
 import { useFocusEffect } from '@react-navigation/native';
 import {
-  Button,
   Icon,
   Input,
   Layout,
@@ -11,7 +10,7 @@ import {
   TopNavigation,
   TopNavigationAction,
 } from '@ui-kitten/components';
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useCallback, useState } from 'react';
 import { SafeAreaView, StatusBar } from 'react-native';
 
 import Loader from '../components/loader';

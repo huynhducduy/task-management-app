@@ -6,7 +6,6 @@ import {
   TopNavigationAction,
 } from '@ui-kitten/components';
 import React from 'react';
-import { SafeAreaView, StatusBar } from 'react-native';
 
 import AuthContainer from '../AuthContainer';
 import clearAuth from '../utils/auth/clearAuth';

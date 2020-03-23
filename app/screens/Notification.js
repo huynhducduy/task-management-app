@@ -7,7 +7,7 @@ import {
 import React from 'react';
 import { SafeAreaView, StatusBar } from 'react-native';
 
-export default function Notification({ navigation }) {
+export default function Notification() {
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: 'rgb(51, 102, 255)' }}>
       <StatusBar barStyle="light-content" />

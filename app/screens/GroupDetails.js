@@ -84,6 +84,7 @@ export default function GroupDetails({ route, navigation }) {
         navigation.goBack();
       })
       .catch(() => {
+        // eslint-disable-next-line
         alert('Remove all members first');
       });
   }

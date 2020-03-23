@@ -9,14 +9,14 @@ export default function Walkthrough({ navigation }) {
       key: '1',
       title: 'Lorem ipsum',
       text: 'Dolor sit amet,\nconsectetur adipiscing elit',
-      image: require('../assets/intro/list.png'),
+      image: require('../assets/intro/list.png'), //eslint-disable-line
       backgroundColor: '#091C7A',
     },
     {
       key: '2',
       title: 'Sed do eiusmod',
       text: 'Tempor incididunt ut labore\net dolore magna aliqua',
-      image: require('../assets/intro/team.png'),
+      image: require('../assets/intro/team.png'), //eslint-disable-line
       backgroundColor: '#00524C',
     },
   ];

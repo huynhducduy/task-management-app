@@ -26,22 +26,39 @@ export default function TaskDetails({ navigation }) {
     setMenuVisible(!menuVisible);
   };
 
+  // eslint-disable-next-line
   const onMenuItemSelect = index => {
     setMenuVisible(false);
   };
 
   return (
-    <SafeAreaView style={{ flex: 1, backgroundColor: 'rgb(51, 102, 255)' }}>
+    <SafeAreaView
+      style={{
+        flex: 1,
+        backgroundColor: 'rgb(51, 102, 255)',
+      }}
+    >
       <StatusBar barStyle="light-content" />
       <TopNavigation
-        style={{ backgroundColor: 'rgb(51, 102, 255)' }}
-        titleStyle={{ color: 'white', fontSize: 18 }}
+        style={{
+          backgroundColor: 'rgb(51, 102, 255)',
+        }}
+        titleStyle={{
+          color: 'white',
+          fontSize: 18,
+        }}
         title="Task Details"
         alignment="center"
         leftControl={
           <TopNavigationAction
             icon={style => (
-              <Icon {...style} style={{ color: 'white' }} name="arrow-left" />
+              <Icon
+                {...style}
+                style={{
+                  color: 'white',
+                }}
+                name="arrow-left"
+              />
             )}
             onPress={() => navigation.goBack()}
           />
@@ -55,7 +72,13 @@ export default function TaskDetails({ navigation }) {
           >
             <TopNavigationAction
               icon={style => (
-                <Icon {...style} style={{ color: 'white' }} name="menu" />
+                <Icon
+                  {...style}
+                  style={{
+                    color: 'white',
+                  }}
+                  name="menu"
+                />
               )}
               onPress={toggleMenu}
             />
