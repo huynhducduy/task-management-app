@@ -1,6 +1,7 @@
 import { useFocusEffect } from '@react-navigation/native';
 import {
   Button,
+  Datepicker,
   Icon,
   Input,
   Layout,
@@ -18,8 +19,12 @@ export default function TaskCreate({ navigation }) {
   const [description, setDescription] = useState('');
   const [reopenables, setReopenables] = useState([]);
   const [assignables, setAssinables] = useState([]);
+  const [stopAt, setStopAt] = useState(0);
   const [openFrom, setOpenFrom] = useState({});
   const [assignee, setAssignee] = useState({});
+
+  const tmr = new Date();
+  tmr.setDate(tmr.getDate() + 1);
 
   function loadables() {
     Get({ to: TASKS_REOPENABLE }).then(res => {
@@ -40,12 +45,6 @@ export default function TaskCreate({ navigation }) {
   }
 
   function create() {
-    console.log({
-      name,
-      description,
-      assignee,
-      open_from: openFrom.id,
-    });
     Post({
       to: TASKS,
       data: {
@@ -53,8 +52,11 @@ export default function TaskCreate({ navigation }) {
         description,
         assignee: assignee.id,
         open_from: openFrom.id,
+        stop_at: stopAt.getTime() / 1000,
       },
-    }).then(res => navigation.navigate('TaskDetails', { id: res.data.id }));
+    })
+      .then(res => navigation.navigate('TaskDetails', { id: res.data.id }))
+      .catch(err => console.log(err.response));
   }
 
   useFocusEffect(useCallback(loadables, []), []);
@@ -117,8 +119,15 @@ export default function TaskCreate({ navigation }) {
           selectedOption={assignee}
           onSelect={data => setAssignee(data)}
         />
+        <Datepicker
+          date={stopAt}
+          onSelect={setStopAt}
+          label="Deadline"
+          style={{ marginTop: 10, width: '100%' }}
+          min={tmr}
+        />
         <Button
-          style={{ marginTop: 15, width: '100%' }}
+          style={{ marginTop: 10, width: '100%' }}
           onPress={create}
           icon={style => <Icon {...style} name="plus" />}
         >

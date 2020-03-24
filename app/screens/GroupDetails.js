@@ -253,7 +253,11 @@ export default function GroupDetails({ route, navigation }) {
                 justifyContent: 'space-between',
               }}
             >
-              <Button style={{ marginTop: 10 }} onPress={save}>
+              <Button
+                style={{ marginTop: 10 }}
+                onPress={save}
+                icon={style => <Icon {...style} name="check" />}
+              >
                 Save
               </Button>
               <Button
@@ -261,6 +265,7 @@ export default function GroupDetails({ route, navigation }) {
                 buttonStyle={{ backgroundColor: 'red' }}
                 status="danger"
                 onPress={remove}
+                icon={style => <Icon {...style} name="close" />}
               >
                 Remove
               </Button>

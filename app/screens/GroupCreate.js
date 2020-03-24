@@ -73,7 +73,11 @@ export default function GroupCreate({ navigation }) {
             marginBottom: 10,
           }}
         >
-          <Button style={{ marginTop: 10 }} onPress={create}>
+          <Button
+            style={{ marginTop: 10 }}
+            onPress={create}
+            icon={style => <Icon {...style} name="plus" />}
+          >
             Create
           </Button>
         </Layout>
