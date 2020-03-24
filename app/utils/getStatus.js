@@ -16,6 +16,8 @@ export default function getStatus(status, isClosed) {
     statusColor = '#274BDB';
   } else if ([3, 4].includes(status) && isClosed === false) {
     stt = '• Reviewing';
+    if (status === 3) stt += ' | Done';
+    else stt += ' | Blocked';
     statusColor = '#DB8B00';
   } else if (status === 3 && isClosed === true) {
     stt = 'Done';

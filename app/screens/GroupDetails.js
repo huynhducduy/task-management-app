@@ -271,7 +271,7 @@ export default function GroupDetails({ route, navigation }) {
           visible={addMemberVisible}
           onBackdropPress={toggleAddMemberVisible}
           backdropStyle={{
-            backgroundColor: 'rgba(0, 0, 0, 0.75)',
+            backgroundColor: 'rgba(0, 0, 0, 0.5)',
           }}
           style={{ width: '100%', paddingHorizontal: 25 }}
         >
