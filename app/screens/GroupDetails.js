@@ -14,7 +14,13 @@ import {
 import React, { useCallback, useEffect, useState } from 'react';
 
 import Loader from '../components/loader';
-import { endpoint, GROUP, GROUP_MEMBER, GROUPS_ADDABLES } from '../endpoints';
+import {
+  endpoint,
+  GROUP,
+  GROUP_MEMBER,
+  GROUPS_ADDABLES,
+  ME,
+} from '../endpoints';
 import LoadingContainer from '../LoadingContainer';
 import { Delete, Get, Patch, Put } from '../utils/api_caller';
 
@@ -29,6 +35,7 @@ export default function GroupDetails({ route, navigation }) {
   const [toAdd, setToAdd] = useState();
   const { setLoading } = LoadingContainer.useContainer();
   const [searchValue, setSeachValue] = useState('');
+  const [isAdmin, setIsAdmin] = useState(false);
 
   function loadData() {
     Promise.all([
@@ -43,6 +50,13 @@ export default function GroupDetails({ route, navigation }) {
       })
       .catch(([err1, err2]) => {
         console.log(err1.response, err2.response);
+      });
+    Get({ to: ME })
+      .then(res => {
+        setIsAdmin(res.data.is_admin);
+      })
+      .catch(err => {
+        console.log('WTF', err.response);
       });
   }
 
@@ -183,12 +197,14 @@ export default function GroupDetails({ route, navigation }) {
           />
         }
         rightControls={
-          <TopNavigationAction
-            icon={style => (
-              <Icon {...style} style={{ color: 'white' }} name="plus" />
-            )}
-            onPress={toggleAddMemberVisible}
-          />
+          isAdmin && (
+            <TopNavigationAction
+              icon={style => (
+                <Icon {...style} style={{ color: 'white' }} name="plus" />
+              )}
+              onPress={toggleAddMemberVisible}
+            />
+          )
         }
       />
 
@@ -230,24 +246,26 @@ export default function GroupDetails({ route, navigation }) {
               setManagerId(data.id);
             }}
           />
-          <Layout
-            style={{
-              flexDirection: 'row',
-              justifyContent: 'space-between',
-            }}
-          >
-            <Button style={{ marginTop: 10 }} onPress={save}>
-              Save
-            </Button>
-            <Button
-              style={{ marginTop: 10, marginLeft: 10 }}
-              buttonStyle={{ backgroundColor: 'red' }}
-              status="danger"
-              onPress={remove}
+          {isAdmin && (
+            <Layout
+              style={{
+                flexDirection: 'row',
+                justifyContent: 'space-between',
+              }}
             >
-              Remove
-            </Button>
-          </Layout>
+              <Button style={{ marginTop: 10 }} onPress={save}>
+                Save
+              </Button>
+              <Button
+                style={{ marginTop: 10, marginLeft: 10 }}
+                buttonStyle={{ backgroundColor: 'red' }}
+                status="danger"
+                onPress={remove}
+              >
+                Remove
+              </Button>
+            </Layout>
+          )}
         </Layout>
         <Input
           value={searchValue}

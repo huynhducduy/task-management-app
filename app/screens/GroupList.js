@@ -11,7 +11,7 @@ import {
 import React, { useCallback, useState } from 'react';
 
 import Loader from '../components/loader';
-import { GROUPS } from '../endpoints';
+import { GROUPS, ME } from '../endpoints';
 import LoadingContainer from '../LoadingContainer';
 import { Get } from '../utils/api_caller';
 
@@ -19,11 +19,20 @@ export default function GroupList({ navigation }) {
   const [groups, setGroups] = useState([]);
   const { setLoading } = LoadingContainer.useContainer();
   const [searchValue, setSeachValue] = useState('');
+  const [isAdmin, setIsAdmin] = useState(false);
 
   function loadData() {
     Get({ to: GROUPS, setLoading })
       .then(res => {
         setGroups(res.data);
+      })
+      .catch(err => {
+        console.log('WTF', err.response);
+      });
+
+    Get({ to: ME })
+      .then(res => {
+        setIsAdmin(res.data.is_admin);
       })
       .catch(err => {
         console.log('WTF', err.response);
@@ -68,12 +77,14 @@ export default function GroupList({ navigation }) {
           />
         }
         rightControls={
-          <TopNavigationAction
-            icon={style => (
-              <Icon {...style} style={{ color: 'white' }} name="plus" />
-            )}
-            onPress={() => navigation.navigate('GroupCreate')}
-          />
+          isAdmin && (
+            <TopNavigationAction
+              icon={style => (
+                <Icon {...style} style={{ color: 'white' }} name="plus" />
+              )}
+              onPress={() => navigation.navigate('GroupCreate')}
+            />
+          )
         }
       />
       <Layout>

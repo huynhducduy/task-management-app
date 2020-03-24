@@ -12,38 +12,53 @@ import { SafeAreaView } from 'react-native';
 import Loader from '../components/loader';
 import { endpoint, ME, USER } from '../endpoints';
 import LoadingContainer from '../LoadingContainer';
-import { Get } from '../utils/api_caller';
+import { Get, Patch } from '../utils/api_caller';
 
 export default function ProfileView({ navigation, route }) {
   const [username, setUsername] = useState();
   const [fullName, setFullName] = useState();
-  const [groupId, setGroupId] = useState();
+  const [isAdmin, setIsAdmin] = useState();
+  const [userId, setUserId] = useState();
 
   const { setLoading } = LoadingContainer.useContainer();
 
   function save() {
-    navigation.goBack();
-  }
-
-  function remove() {
-    navigation.goBack();
-  }
-
-  function loadData() {
-    let to;
-
-    if (route.params.id === 'me') to = ME;
-    else to = endpoint(USER, { id: route.params.id });
-
-    Get({ to, setLoading })
-      .then(res => {
-        setUsername(res.data.username);
-        setFullName(res.data.full_name);
-        setGroupId(res.data.group_id == null ? '' : `${res.data.group_id}`);
+    Patch({
+      to: endpoint(USER, { id: userId }),
+      setLoading,
+      data: { full_name: fullName },
+    })
+      .then(() => {
+        navigation.goBack();
       })
       .catch(err => {
         console.log('WTF', err.response);
       });
+  }
+
+  function loadData() {
+    Get({ to: ME, setLoading })
+      .then(res => {
+        setIsAdmin(res.data.is_admin);
+        setUserId(res.data.id);
+        setUsername(res.data.username);
+        setFullName(res.data.full_name);
+      })
+      .catch(err => {
+        console.log('WTF', err.response);
+      });
+
+    if (route.params.id !== 'me') {
+      Get({ to: endpoint(USER, { id: route.params.id }), setLoading })
+        .then(res => {
+          setUserId(res.data.id);
+          setUsername(res.data.username);
+          setFullName(res.data.full_name);
+        })
+        .catch(err => {
+          console.log('WTF', err.response);
+        });
+    }
   }
 
   useLayoutEffect(useCallback(loadData, []), []);
@@ -78,9 +93,9 @@ export default function ProfileView({ navigation, route }) {
           label="Username"
           errorStyle={{ color: 'red' }}
           value={username}
-          onChangeText={setUsername}
           labelStyle={{ marginTop: 10 }}
           autoCapitalize="none"
+          disabled
         />
         <Input
           label="Full name"
@@ -90,31 +105,22 @@ export default function ProfileView({ navigation, route }) {
           labelStyle={{ marginTop: 10 }}
           autoCapitalize="none"
         />
-        <Input
-          label="Group Id"
-          errorStyle={{ color: 'red' }}
-          value={groupId}
-          onChangeText={setGroupId}
-          labelStyle={{ marginTop: 10 }}
-          keyboardType="number-pad"
-          autoCapitalize="none"
-        />
         <Layout
           style={{
             flexDirection: 'row',
             justifyContent: 'space-between',
           }}
         >
-          <Button title="Save" style={{ marginTop: 10 }} onPress={save}>
-            Save
-          </Button>
-          <Button
-            style={{ marginTop: 10, marginLeft: 10 }}
-            status="danger"
-            onPress={remove}
-          >
-            Delete
-          </Button>
+          {(route.params.id === 'me' || isAdmin) && (
+            <Button
+              title="Save"
+              style={{ marginTop: 10 }}
+              onPress={save}
+              icon={style => <Icon {...style} name="check" />}
+            >
+              Save
+            </Button>
+          )}
         </Layout>
       </Layout>
     </SafeAreaView>

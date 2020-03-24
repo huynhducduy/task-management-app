@@ -1,3 +1,4 @@
+import { useFocusEffect } from '@react-navigation/native';
 import {
   Icon,
   Layout,
@@ -5,19 +6,34 @@ import {
   TopNavigation,
   TopNavigationAction,
 } from '@ui-kitten/components';
-import React from 'react';
+import React, { useCallback, useState } from 'react';
 
 import AuthContainer from '../AuthContainer';
+import { ME } from '../endpoints';
+import { Get } from '../utils/api_caller';
 import clearAuth from '../utils/auth/clearAuth';
 
 export default function ProfileView({ navigation }) {
   const auth = AuthContainer.useContainer();
+  const [isAdmin, setIsAdmin] = useState(false);
+
+  function loadData() {
+    Get({ to: ME })
+      .then(res => {
+        setIsAdmin(res.data.is_admin);
+      })
+      .catch(err => {
+        console.log('WTF', err.response);
+      });
+  }
 
   function logout() {
     clearAuth().then(() => {
       auth.setLoggedIn(false);
     });
   }
+
+  useFocusEffect(useCallback(loadData, []), []);
 
   return (
     <Layout>
@@ -37,11 +53,14 @@ export default function ProfileView({ navigation }) {
           />
         }
         rightControls={
-          <TopNavigationAction
-            icon={style => (
-              <Icon {...style} style={{ color: 'white' }} name="plus" />
-            )}
-          />
+          isAdmin && (
+            <TopNavigationAction
+              icon={style => (
+                <Icon {...style} style={{ color: 'white' }} name="plus" />
+              )}
+              onPress={() => navigation.navigate('ProfileCreate')}
+            />
+          )
         }
       />
       <ListItem

@@ -285,18 +285,20 @@ export default function TaskDetails({ navigation, route }) {
               )}
               onPress={loadData}
             />
-            <TopNavigationAction
-              icon={style => (
-                <Icon
-                  {...style}
-                  style={{
-                    color: 'white',
-                  }}
-                  name="close-circle"
-                />
-              )}
-              onPress={close}
-            />
+            {permission === 'manage' && (
+              <TopNavigationAction
+                icon={style => (
+                  <Icon
+                    {...style}
+                    style={{
+                      color: 'white',
+                    }}
+                    name="close-circle"
+                  />
+                )}
+                onPress={close}
+              />
+            )}
             {/* <OverflowMenu
               visible={menuVisible}
               data={menuData}
@@ -466,6 +468,7 @@ export default function TaskDetails({ navigation, route }) {
             value={name}
             onChangeText={setName}
             autoCapitalize="none"
+            disabled={permission === 'do'}
           />
           <Input
             label="Description"
@@ -473,6 +476,7 @@ export default function TaskDetails({ navigation, route }) {
             multiline
             onChangeText={setDescription}
             autoCapitalize="none"
+            disabled={permission === 'do'}
           />
           {task.status !== 0 && task.status !== 1 && (
             <Input
@@ -762,18 +766,19 @@ export default function TaskDetails({ navigation, route }) {
                 <Divider />
               </>
             )}
-            {!task.is_closed && (
-              <Button
-                style={{
-                  marginHorizontal: 10,
-                  marginVertical: 15,
-                }}
-                icon={style => <Icon {...style} name="content-save" />}
-                onPress={save}
-              >
-                SAVE
-              </Button>
-            )}
+            {(permission === 'manage' || permission === 'do') &&
+              !task.is_closed && (
+                <Button
+                  style={{
+                    marginHorizontal: 10,
+                    marginVertical: 15,
+                  }}
+                  icon={style => <Icon {...style} name="content-save" />}
+                  onPress={save}
+                >
+                  SAVE
+                </Button>
+              )}
           </Layout>
         </Layout>
       </ScrollView>
