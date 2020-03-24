@@ -200,6 +200,7 @@ export default function GroupDetails({ route, navigation }) {
             alignItems: 'center',
             backgroundColor: 'white',
             paddingHorizontal: 10,
+            marginBottom: 10,
           }}
         >
           <Input
@@ -233,7 +234,6 @@ export default function GroupDetails({ route, navigation }) {
             style={{
               flexDirection: 'row',
               justifyContent: 'space-between',
-              marginBottom: 10,
             }}
           >
             <Button style={{ marginTop: 10 }} onPress={save}>
@@ -254,7 +254,7 @@ export default function GroupDetails({ route, navigation }) {
           placeholder="Search"
           icon={style => <Icon {...style} name="magnify" />}
           onChangeText={setSeachValue}
-          style={{ margin: 10 }}
+          style={{ marginHorizontal: 10 }}
           autoCapitalize="none"
         />
         <List

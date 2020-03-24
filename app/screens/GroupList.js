@@ -76,8 +76,7 @@ export default function GroupList({ navigation }) {
           />
         }
       />
-      <Layout style={{ flex: 1 }}>
-        <Loader />
+      <Layout>
         <Input
           value={searchValue}
           placeholder="Search"
@@ -86,6 +85,9 @@ export default function GroupList({ navigation }) {
           style={{ margin: 10 }}
           autoCapitalize="none"
         />
+      </Layout>
+      <Layout style={{ flex: 1 }}>
+        <Loader />
         <List
           data={groups.filter(function filter(c) {
             return (

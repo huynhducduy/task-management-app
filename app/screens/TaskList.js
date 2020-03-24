@@ -17,6 +17,7 @@ import Loader from '../components/loader';
 import { TASKS, USERS } from '../endpoints';
 import LoadingContainer from '../LoadingContainer';
 import { Get } from '../utils/api_caller';
+import getStatus from '../utils/getStatus';
 
 const statuses = [
   { text: 'Rejected', id: -1 }, // 0, 1
@@ -106,15 +107,19 @@ export default function TaskList({ navigation }) {
   }
 
   function renderItem({ item, index }) {
+    const [status, statusColor] = getStatus(item.status, item.is_closed);
+
     return (
       <ListItem
         key={index}
         title={item.name}
         icon={style => <Icon {...style} name="briefcase" />}
         onPress={() => onPress(item.id)}
-        description={item.description}
-        descriptionStyle={{ fontSize: 12 }}
-        accessory={style => <Icon {...style} name="chevron-right" />}
+        description={status}
+        descriptionStyle={{ fontSize: 12, color: statusColor }}
+        accessory={style => (
+          <Icon {...style} fill={statusColor} name="chevron-right" />
+        )}
       />
     );
   }
@@ -165,7 +170,7 @@ export default function TaskList({ navigation }) {
             flexDirection: 'row',
             paddingHorizontal: 10,
             paddingBottom: 10,
-            marginTop: 20,
+            marginTop: 10,
           }}
         >
           <RangeDatepicker
@@ -173,6 +178,7 @@ export default function TaskList({ navigation }) {
             onSelect={setRange}
             style={{ width: '49%' }}
             placeholder="Deadline"
+            icon={style => <Icon {...style} name="timer" />}
           />
           <Layout style={{ width: '2%' }} />
           <Select
@@ -182,6 +188,7 @@ export default function TaskList({ navigation }) {
             onSelect={d => setSelectedStatus(d)}
             style={{ width: '49%' }}
             placeholder="Status"
+            icon={style => <Icon {...style} name="coffee" />}
           />
         </Layout>
         <Layout
@@ -198,6 +205,7 @@ export default function TaskList({ navigation }) {
             onSelect={d => setSelectedAssigners(d)}
             style={{ width: '49%' }}
             placeholder="Assigner"
+            icon={style => <Icon {...style} name="account-arrow-right" />}
           />
           <Layout style={{ width: '2%' }} />
           <Select
@@ -207,6 +215,7 @@ export default function TaskList({ navigation }) {
             onSelect={d => setSelectedAssignees(d)}
             style={{ width: '49%' }}
             placeholder="Assignee"
+            icon={style => <Icon {...style} name="account-arrow-left" />}
           />
         </Layout>
         {/* <Layout
