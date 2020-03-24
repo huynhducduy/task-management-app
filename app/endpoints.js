@@ -24,3 +24,5 @@ export const TASK_CHECK = `${TASK}/check`;
 export const TASK_CONFIRM = `${TASK}/confirm`;
 export const TASK_VERIFY = `${TASK}/verify`;
 export const TASK_CLOSE = `${TASK}/close`;
+export const NOTIS = `${config.api_url}noti`;
+export const NOTI = `${NOTIS}/{id}`;
