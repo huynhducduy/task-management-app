@@ -60,7 +60,7 @@ export async function request({
       params,
       config,
       ...custom,
-    }).finally(() => setTimeout(() => setLoading(false), 500));
+    }).finally(() => setTimeout(() => setLoading(false), 300));
   } catch (err) {
     console.log(err);
     throw err;
