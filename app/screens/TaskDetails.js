@@ -27,6 +27,7 @@ import {
 } from 'react-native';
 
 import Loader from '../components/loader';
+import config from '../config';
 import {
   endpoint,
   TASK,
@@ -698,7 +699,7 @@ export default function TaskDetails({ navigation, route }) {
                   <TouchableOpacity onPress={toggleProof}>
                     <Avatar
                       source={{
-                        uri: `http://192.168.0.4:8080/images/${task.proof}`,
+                        uri: `${config.image_base}${task.proof}`,
                       }}
                     />
                   </TouchableOpacity>
@@ -792,7 +793,7 @@ export default function TaskDetails({ navigation, route }) {
         >
           <TouchableWithoutFeedback onPress={toggleProof}>
             <Image
-              source={{ uri: `http://192.168.0.4:8080/images/${task.proof}` }}
+              source={{ uri: `${config.image_base}${task.proof}` }}
               resizeMode="contain"
               style={{
                 width: win.width - 20,

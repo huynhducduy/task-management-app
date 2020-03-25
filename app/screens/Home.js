@@ -30,7 +30,7 @@ async function registerForPushNotificationsAsync() {
   Put({
     to: NOTIS,
     params: { token: token.replace('ExponentPushToken[', '').replace(']', '') },
-  });
+  }).catch();
 }
 
 const BottomTabBar = ({ navigation, state }) => {
