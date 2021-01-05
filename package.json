@@ -19,7 +19,7 @@
     "@ui-kitten/components": "^4.4.1",
     "@ui-kitten/date-fns": "^4.4.1",
     "@ui-kitten/metro-config": "^4.4.1",
-    "axios": "^0.19.2",
+    "axios": "^0.21.1",
     "babel-plugin-date-fns": "^2.0.0",
     "babel-plugin-inline-dotenv": "^1.5.0",
     "babel-plugin-ramda": "^2.0.0",
